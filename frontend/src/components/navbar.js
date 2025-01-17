@@ -40,40 +40,42 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 flex justify-between items-center shadow-md">
-      {/* Navigation Buttons */}
-      <div className="space-x-4">
-        <button
-          onClick={navigateToDashboard}
-          className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200"
-        >
-          Dashboard
-        </button>
-        <button
-          onClick={navigateToAddDebit}
-          className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200"
-        >
-          Add Debit
-        </button>
-        <button
-          onClick={navigateToAddCredit}
-          className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200"
-        >
-          Add Credit
-        </button>
-      </div>
+    <>
+      <nav className="bg-gray-800 p-4 flex justify-between items-center shadow-md">
+        {/* Navigation Buttons */}
+        <div className="space-x-4">
+          <button
+            onClick={navigateToDashboard}
+            className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200"
+          >
+            Dashboard
+          </button>
+          <button
+            onClick={navigateToAddDebit}
+            className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200"
+          >
+            Add Debit
+          </button>
+          <button
+            onClick={navigateToAddCredit}
+            className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200"
+          >
+            Add Credit
+          </button>
+        </div>
 
-      {/* Logout Button moved to the extreme right */}
-      <button
-        onClick={handleLogout}
-        className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200 ml-auto"
-      >
-        Logout
-      </button>
+        {/* Logout Button moved to the extreme right */}
+        <button
+          onClick={handleLogout}
+          className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200 ml-auto"
+        >
+          Logout
+        </button>
+      </nav>
 
-      {/* ToastContainer to show toast notifications */}
+      {/* ToastContainer should be placed here or at a higher level in your component tree */}
       <ToastContainer />
-    </nav>
+    </>
   );
 };
 
