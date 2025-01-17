@@ -1,16 +1,70 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import HomePage from './pages/Home';
+import AddCredit from './components/AddCredit';
+import AddDebit from './components/AddDebit';
+import Navbar from './components/navbar'; // Ensure correct capitalization
+import PrivateRoute from './privateRoute'; // Import the PrivateRoute component
+
+// Layout component to include Navbar conditionally
+const Layout = ({ children }) => {
+  const location = useLocation();
+  const noNavbarRoutes = ['/login', '/signup', '/']; // Define routes without Navbar
+
+  return (
+    <div>
+      {/* Conditionally render Navbar */}
+      {!noNavbarRoutes.includes(location.pathname) && <Navbar />}
+      <main>{children}</main>
+    </div>
+  );
+};
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Routes where Navbar is not rendered */}
+        <Route path="/" element={<LoginForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignupForm />} />
-        <Route path="/home" element={<HomePage />} />
+
+        {/* Routes wrapped with Layout for conditional Navbar */}
+        <Route
+          path="/*"
+          element={
+            <Layout>
+              <Routes>
+                <Route
+                  path="/home"
+                  element={
+                    <PrivateRoute>
+                      <HomePage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/add-credit"
+                  element={
+                    <PrivateRoute>
+                      <AddCredit />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/add-debit"
+                  element={
+                    <PrivateRoute>
+                      <AddDebit />
+                    </PrivateRoute>
+                  }
+                />
+              </Routes>
+            </Layout>
+          }
+        />
       </Routes>
     </Router>
   );
