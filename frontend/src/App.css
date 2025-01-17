@@ -1,0 +1,121 @@
+/* Dark Mode General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #181818; /* Dark background */
+  color: white; /* White text for readability */
+}
+
+/* Navbar styling */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333; /* Dark background for navbar */
+  color: white;
+  padding: 10px 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left {
+  display: flex;
+}
+
+.navbar-left a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navbar-left a:hover {
+  text-decoration: underline;
+}
+
+.navbar-right button {
+  background-color: #f59d71;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-right button:hover {
+  background-color: #c46056;
+}
+
+/* Content styling */
+.content {
+  margin-top: 60px;
+  padding: 20px;
+}
+
+/* Header Styling */
+h2, h3 {
+  color: white;  /* Keep header text white for contrast */
+}
+
+/* Expense Tracker styling */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: #2a2a2a; /* Dark background for list items */
+  color: white; /* Light text color */
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+li:hover {
+  background-color: #444; /* Slightly lighter background on hover */
+}
+
+/* General Button styling */
+button {
+  background-color: #f59d71;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #c46056;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-left {
+    margin-bottom: 10px;
+  }
+
+  .navbar-left a {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .navbar-right {
+    margin-top: 10px;
+  }
+}
