@@ -188,10 +188,24 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      <h1 className="text-3xl font-semibold text-orange-500 mb-6">Welcome to Your Dashboard</h1>
-    
-      {/* Income, Spent, and Savings Summary */}
-      <div className="mb-6 flex flex-wrap justify-between gap-6">
+      <div style={{ textAlign: 'left', marginBottom: '2rem' }}>
+  <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#f97316' }}>
+    Welcome
+  </h1>
+  <h2
+    style={{
+      fontSize: '2rem',
+      fontWeight: '800',
+      WebkitTextStroke: '1px gray',
+      color: 'transparent',
+    }}
+  >
+    &nbsp;&nbsp;&nbsp;&nbsp;to Your Dashboard
+  </h2>
+</div>
+
+  {/* Income, Spent, and Savings Summary */}
+  <div className="mb-6 flex flex-wrap justify-between gap-6">
         <div className="bg-gray-800 p-3 rounded-lg w-full sm:w-1/3">
           <h2 className="text-xl font-semibold">Total Income</h2>
           <p className="text-2xl">₹{totalIncome}</p>
@@ -204,61 +218,131 @@ const Home = () => {
           <h2 className="text-xl font-semibold">Total Spent</h2>
           <p className="text-2xl">₹{totalSpent}</p>
         </div>
-      </div>
+      </div> 
 
-      {/* Charts Side by Side */}
-      <div className="mb-6 flex flex-wrap justify-between gap-6">
-        <div className="w-full lg:w-5/12" style={{ height: '400px' }}>
-          <h2 className="text-xl font-semibold text-center">Monthly Spending</h2>
-          <Line data={monthlyChartData} />
-        </div>
+    {/* Charts Side by Side */}
+<div className="mb-6 flex flex-wrap justify-between gap-6">
+  {/* Monthly Spending Chart */}
+  <div
+    className="w-full lg:w-5/12 bg-gray-800 rounded-lg shadow-lg p-4"
+    style={{ height: "420px" }}
+  >
+    <h2 className="text-xl font-semibold text-center text-gray-100 mb-4">
+      Monthly Spending
+    </h2>
+    <div className="h-[85%] flex items-center justify-center">
+      <Line
+        data={monthlyChartData}
+        options={{
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: "#fff" }, // White legend text
+            },
+          },
+          scales: {
+            x: {
+              ticks: { color: "#aaa" }, // White x-axis labels
+              grid: { color: "#555" }, // Subtle x-axis grid color
+            },
+            y: {
+              ticks: { color: "#aaa" }, // White y-axis labels
+              grid: { color: "#555" }, // Subtle y-axis grid color
+            },
+          },
+        }}
+      />
+    </div>
+  </div>
 
-        <div className="w-full lg:w-5/12" style={{ height: '400px' }}>
-          <h2 className="text-xl font-semibold text-center">Spending by Category</h2>
-          <Bar data={categoryChartData} />
-        </div>
-      </div>
+  {/* Spending by Category Chart */}
+  <div
+    className="w-full lg:w-5/12 bg-gray-800 rounded-lg shadow-lg p-4"
+    style={{ height: "420px" }}
+  >
+    <h2 className="text-xl font-semibold text-center text-gray-100 mb-4">
+      Spending by Category
+    </h2>
+    <div className="h-[85%] flex items-center justify-center">
+      <Bar
+        data={categoryChartData}
+        options={{
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: "#fff" }, // White legend text
+            },
+          },
+          scales: {
+            x: {
+              ticks: { color: "#aaa" }, // White x-axis labels
+              grid: { color: "#555" }, // Subtle x-axis grid color
+            },
+            y: {
+              ticks: { color: "#aaa" }, // White y-axis labels
+              grid: { color: "#555" }, // Subtle y-axis grid color
+            },
+          },
+        }}
+      />
+    </div>
+  </div>
+</div>
 
-      {/* Transaction Details */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold">Transaction Details</h2>
-        <div className="bg-gray-800 p-4 rounded-lg">
-          <table className="w-full text-left">
-            <thead>
-              <tr>
-                <th className="p-2">Date</th>
-                <th className="p-2">Amount</th>
-                <th className="p-2">Category</th>
-                <th className="p-2">Payment Mode</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.length > 0 ? (
-                transactions.map((transaction, index) => (
-                  <tr key={index} className="border-b border-gray-600">
-                    <td className="p-2">{new Date(transaction.transactionDate).toLocaleDateString()}</td>
-                    <td className="p-2">₹{transaction.amount}</td>
-                    <td className="p-2">{transaction.spentAt}</td>
-                    <td className="p-2">{transaction.paymentMode}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4" className="text-center p-2">No transactions available</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
 
-      {/* Download PDF Button */}
-      <button 
-        className="bg-orange-500 p-3 rounded-lg text-white mt-6" 
-        onClick={downloadPDF}
-      >
-        Download PDF
-      </button>
+     {/* Transaction Details */}
+<div className="mb-6">
+  <h2 className="text-xl font-semibold mb-4 text-gray-100">Transaction Details</h2>
+  <div className="bg-gray-800 p-6 rounded-lg shadow-md">
+    <table className="w-full text-left border-collapse">
+      <thead>
+        <tr className="bg-gray-700 text-gray-300">
+          <th className="p-3 text-sm font-medium uppercase">Date</th>
+          <th className="p-3 text-sm font-medium uppercase">Amount</th>
+          <th className="p-3 text-sm font-medium uppercase">Category</th>
+          <th className="p-3 text-sm font-medium uppercase">Payment Mode</th>
+        </tr>
+      </thead>
+      <tbody>
+        {transactions.length > 0 ? (
+          transactions.map((transaction, index) => (
+            <tr
+              key={index}
+              className={`${
+                index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"
+              } hover:bg-gray-600 transition-colors`}
+            >
+              <td className="p-3 text-sm text-gray-300">
+                {new Date(transaction.transactionDate).toLocaleDateString()}
+              </td>
+              <td className="p-3 text-sm text-red-600">₹{transaction.amount}</td>
+              <td className="p-3 text-sm text-gray-300">{transaction.spentAt}</td>
+              <td className="p-3 text-sm text-gray-300">{transaction.paymentMode}</td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="4" className="text-center p-3 text-gray-400">
+              No transactions available
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+     {/* Download PDF Button */}
+<div className="flex justify-end mt-6">
+  <button 
+    className="bg-orange-500 p-3 rounded-lg text-white hover:bg-orange-600 transition duration-300" 
+    onClick={downloadPDF}
+  >
+    Download PDF
+  </button>
+</div>
+
     </div>
   );
 };
