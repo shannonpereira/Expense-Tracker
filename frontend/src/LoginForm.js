@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext'; // Import useAuth hook
-import {  toast } from 'sonner'; // Import Sonner components
+import { toast } from 'sonner'; // Import Sonner components
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -28,9 +28,9 @@ const LoginForm = () => {
       // Store the email in the AuthContext (Global state)
       login(email);
 
-      // Show a success notification
+      // Show success notification
       toast.success('Login successful! Redirecting to home page...');
-      
+
       // Redirect to home page
       setTimeout(() => navigate('/home'), 2000); // Delay to show toast before redirecting
     } catch (err) {
