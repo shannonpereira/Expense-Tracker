@@ -6,7 +6,7 @@ import HomePage from './pages/Home';
 import AddCredit from './components/AddCredit';
 import AddDebit from './components/AddDebit';
 import Navbar from './components/navbar';
-import PrivateRoute from './privateRoute'; // Import the PrivateRoute component
+import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './AuthContext'; // Import the AuthProvider
 import { Toaster } from 'sonner'; // Import the Toaster component from Sonner
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
+import { toast } from 'sonner';
 
 const SignupForm = () => {
   const [name, setName] = useState('');
@@ -24,7 +25,7 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await axios.post('https://your-backend-url.com/users/add', {
+      const response = await axios.post('https://price-tracker-backend-one.vercel.app/users/add', {
         name,
         email,
         password,
@@ -39,7 +40,7 @@ const SignupForm = () => {
 
       login(email);
 
-      alert('Signup successful!');
+      toast.success('Signed up successfully! Redirecting to home page...');
 
       navigate('/home');
     } catch (err) {
