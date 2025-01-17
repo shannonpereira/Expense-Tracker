@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 const SignupForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [primaryBankAccount, setPrimaryBankAccount] = useState('');
   const [secondaryBankAccount, setSecondaryBankAccount] = useState('');
   const [tertiaryBankAccount, setTertiaryBankAccount] = useState('');
   const [error, setError] = useState('');
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     try {
-      const response = await axios.post('https://price-tracker-backend-one.vercel.app/users/add', {
+      const response = await axios.post('https://your-backend-url.com/users/add', {
         name,
         email,
         password,
@@ -25,14 +33,14 @@ const SignupForm = () => {
         tertiaryBankAccount,
       });
 
-      // Store the token, userId, and email after successful signup
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data.userId); // Store userId
-      localStorage.setItem('email', email); // Store email
+      localStorage.setItem('userId', response.data.userId);
+      localStorage.setItem('email', email);
+
+      login(email);
 
       alert('Signup successful!');
-      
-      // Redirect to home page
+
       navigate('/home');
     } catch (err) {
       setError('Error signing up. Please try again.');
@@ -64,6 +72,13 @@ const SignupForm = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 rounded-md border border-gray-700 bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="w-full p-3 rounded-md border border-gray-700 bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           <input

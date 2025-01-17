@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../AuthContext'; // Import the context
-import { toast, ToastContainer } from 'react-toastify'; // Import toast for notifications
-import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
+import { toast } from 'sonner'; // Import Sonner
 
 const AddCredit = () => {
   const { userEmail } = useAuth(); // Use the email from context
@@ -53,42 +52,18 @@ const AddCredit = () => {
       const response = await axios.post('https://price-tracker-backend-one.vercel.app/income/add', payload);
 
       if (response.status === 201) {
-        toast.success('Income added successfully!', { // Show success notification
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.success('Income added successfully!');
         
         setAmount('');
         setPaymentMode('Bank Transfer');
         setLinkedBank(bankAccounts.length > 0 ? bankAccounts[0] : '');
       } else {
         setError(`Failed to add income. Status: ${response.status}`);
-        toast.error('Failed to add income. Please try again.', { // Show error notification
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error('Failed to add income. Please try again.');
       }
     } catch (error) {
       setError('Failed to add income. Please try again.');
-      toast.error('Failed to add income. Please try again.', { // Show error notification
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error('Failed to add income. Please try again.');
     }
   };
 
@@ -154,7 +129,6 @@ const AddCredit = () => {
         </form>
       </div>
       
-      <ToastContainer /> {/* Toast container to display notifications */}
     </div>
   );
 };

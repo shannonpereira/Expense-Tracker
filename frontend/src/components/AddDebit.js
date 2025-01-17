@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from '../AuthContext'; // Import the context
+import { useAuth } from '../AuthContext';
+import { Toaster, toast } from 'sonner'; // Importing Sonner for notifications
 
 const AddDebit = () => {
-  const { userEmail } = useAuth(); // Use the email from context
+  const { userEmail } = useAuth();
   const [amount, setAmount] = useState('');
-  const [spentAt, setSpentAt] = useState(''); // Spent At (description) field
-  const [paymentMode, setPaymentMode] = useState('Debit'); // Default payment mode set to 'Debit'
+  const [spentAt, setSpentAt] = useState('');
+  const [paymentMode, setPaymentMode] = useState('Debit');
   const [linkedBank, setLinkedBank] = useState('');
   const [bankAccounts, setBankAccounts] = useState([]);
   const [error, setError] = useState(null);
@@ -15,12 +16,17 @@ const AddDebit = () => {
     if (userEmail) {
       const fetchBankAccounts = async () => {
         try {
-          const response = await axios.get(`https://price-tracker-backend-one.vercel.app/users/bank-accounts/${userEmail}`);
-          
+          const response = await axios.get(
+            `https://price-tracker-backend-one.vercel.app/users/bank-accounts/${userEmail}`
+          );
           if (response.data && response.data.bankAccounts) {
             const { bankAccounts } = response.data;
-            setBankAccounts([bankAccounts.primaryBankAccount, bankAccounts.secondaryBankAccount, bankAccounts.tertiaryBankAccount]);
-            setLinkedBank(bankAccounts.primaryBankAccount); // Set default bank
+            setBankAccounts([
+              bankAccounts.primaryBankAccount,
+              bankAccounts.secondaryBankAccount,
+              bankAccounts.tertiaryBankAccount,
+            ]);
+            setLinkedBank(bankAccounts.primaryBankAccount);
           } else {
             setError('No bank accounts found');
           }
@@ -41,7 +47,6 @@ const AddDebit = () => {
       return;
     }
 
-    // Prepare the payload
     const payload = {
       email: userEmail,
       amount: parseFloat(amount),
@@ -49,7 +54,6 @@ const AddDebit = () => {
       paymentMode,
     };
 
-    // Include 'bank' in the payload only if payment mode is not 'Cash'
     if (paymentMode !== 'Cash') {
       if (!linkedBank) {
         setError('Please select a bank account for non-cash payments.');
@@ -59,85 +63,90 @@ const AddDebit = () => {
     }
 
     try {
-      const response = await axios.post('https://price-tracker-backend-one.vercel.app/transactions/add', payload); // Changed URL for debit
+      const response = await axios.post(
+        'https://price-tracker-backend-one.vercel.app/transactions/add',
+        payload
+      );
 
       if (response.status === 201) {
-        alert('Debit added successfully!');
+        toast.success('Debit added successfully!');
         setAmount('');
         setSpentAt('');
         setPaymentMode('Debit');
         setLinkedBank(bankAccounts.length > 0 ? bankAccounts[0] : '');
-        setError(null); // Reset error message on successful submission
+        setError(null);
       } else {
-        setError(`Failed to add debit. Status: ${response.status}`);
+        toast.error(`Failed to add debit. Status: ${response.status}`);
       }
     } catch (error) {
-      setError('Failed to add debit. Please try again.');
+      toast.error('Failed to add debit. Please try again.');
     }
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold text-orange-500">Add Debit</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+      <Toaster position="top-center" />
+      <div className="w-full max-w-md p-6 bg-gray-800 text-white rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold text-orange-500 text-center mb-4">Add Debit</h2>
 
-      {/* Display Logged-in User's Email */}
-      <div className="my-4 p-4 border rounded shadow bg-gray-100">
-        <h3 className="text-lg font-semibold">Logged in as: {userEmail}</h3>
-      </div>
+        <div className="my-4 p-4 border rounded bg-gray-700 text-gray-300">
+          <h3 className="text-lg font-semibold text-center">Logged in as: {userEmail}</h3>
+        </div>
 
-      {error && <div className="text-red-500">{error}</div>}
+        {error && <div className="text-red-400 text-center mb-4">{error}</div>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="border p-2 my-2 rounded w-full"
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full border border-gray-600 bg-gray-700 text-white p-2 my-2 rounded"
+          />
 
-        <input
-          type="text"
-          placeholder="Spent At (Description)"
-          value={spentAt}
-          onChange={(e) => setSpentAt(e.target.value)}
-          className="border p-2 my-2 rounded w-full"
-        />
-        
-        <select
-          value={paymentMode}
-          onChange={(e) => setPaymentMode(e.target.value)}
-          className="border p-2 my-2 rounded w-full"
-        >
-          <option value="Debit">Debit</option>
-          <option value="Cash">Cash</option>
-          <option value="Credit">Credit</option>
-          <option value="UPI">UPI</option>
-          <option value="NetBanking">NetBanking</option>
-        </select>
+          <input
+            type="text"
+            placeholder="Spent At (Description)"
+            value={spentAt}
+            onChange={(e) => setSpentAt(e.target.value)}
+            className="w-full border border-gray-600 bg-gray-700 text-white p-2 my-2 rounded"
+          />
 
-        {paymentMode !== 'Cash' && bankAccounts.length > 0 && (
           <select
-            value={linkedBank}
-            onChange={(e) => setLinkedBank(e.target.value)}
-            className="border p-2 my-2 rounded w-full"
+            value={paymentMode}
+            onChange={(e) => setPaymentMode(e.target.value)}
+            className="w-full border border-gray-600 bg-gray-700 text-white p-2 my-2 rounded"
           >
-            <option value="">Select Bank</option>
-            {bankAccounts.map((bank, index) => (
-              <option key={index} value={bank}>
-                {bank}
-              </option>
-            ))}
+            <option value="Debit">Debit</option>
+            <option value="Cash">Cash</option>
+            <option value="Credit">Credit</option>
+            <option value="UPI">UPI</option>
+            <option value="NetBanking">NetBanking</option>
           </select>
-        )}
 
-        <button
-          type="submit"
-          className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200"
-        >
-          Add Debit
-        </button>
-      </form>
+          {paymentMode !== 'Cash' && bankAccounts.length > 0 && (
+            <select
+              value={linkedBank}
+              onChange={(e) => setLinkedBank(e.target.value)}
+              className="w-full border border-gray-600 bg-gray-700 text-white p-2 my-2 rounded"
+            >
+              <option value="">Select Bank</option>
+              {bankAccounts.map((bank, index) => (
+                <option key={index} value={bank}>
+                  {bank}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <button
+            type="submit"
+            className="w-full bg-orange-500 text-white px-4 py-2 mt-4 rounded-md font-semibold hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-200"
+          >
+            Add Debit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

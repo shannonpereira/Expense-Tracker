@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify'; // Import ToastContainer along with toast
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for the toast notifications
+import { toast } from 'sonner'; // Import toast from Sonner
+import { Toaster } from 'sonner'; // Import Toaster component from Sonner
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -14,15 +14,18 @@ const Navbar = () => {
     
     // Show toast notification for successful logout
     toast.success('Logged out successfully!', {
-      position: "top-right", // Position of the toast
-      autoClose: 3000, // Time before it disappears (in ms)
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+      // Success toast will be green by default
+      position: 'top-center',
+      duration: 3000,
     });
-    
+
+    // You can show another notification here if you want
+    // Example of another notification (you can customize it)
+    toast.info('We hope to see you again soon!', {
+      position: 'top-center',
+      duration: 3000,
+    });
+
     // Redirect to login page after logout
     navigate('/login');
   };
@@ -73,8 +76,8 @@ const Navbar = () => {
         </button>
       </nav>
 
-      {/* ToastContainer should be placed here or at a higher level in your component tree */}
-      <ToastContainer />
+      {/* Add Sonner's Toaster component at a high level */}
+      <Toaster position="top-center" />
     </>
   );
 };

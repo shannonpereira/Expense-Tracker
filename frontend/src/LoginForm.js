@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext'; // Import useAuth hook
+import { Toaster, toast } from 'sonner'; // Import Sonner components
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth(); // Access login function from AuthContext
 
@@ -28,12 +28,14 @@ const LoginForm = () => {
       // Store the email in the AuthContext (Global state)
       login(email);
 
-      alert('Login successful!');
+      // Show a success notification
+      toast.success('Login successful! Redirecting to home page...');
       
       // Redirect to home page
-      navigate('/home');
+      setTimeout(() => navigate('/home'), 2000); // Delay to show toast before redirecting
     } catch (err) {
-      setError('Invalid credentials. Please try again.');
+      // Show an error notification
+      toast.error('Invalid credentials. Please try again.');
     }
   };
 
@@ -41,7 +43,7 @@ const LoginForm = () => {
     <div className="min-h-screen bg-gray-900 flex justify-center items-center">
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-3xl text-orange-500 text-center mb-6">Login</h2>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+     
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"

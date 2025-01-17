@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import LoginForm from './LoginForm';
@@ -9,6 +8,7 @@ import AddDebit from './components/AddDebit';
 import Navbar from './components/navbar';
 import PrivateRoute from './privateRoute'; // Import the PrivateRoute component
 import { AuthProvider } from './AuthContext'; // Import the AuthProvider
+import { Toaster } from 'sonner'; // Import the Toaster component from Sonner
 
 // Layout component to include Navbar conditionally
 const Layout = ({ children }) => {
@@ -28,6 +28,12 @@ function App() {
   return (
     <AuthProvider> {/* Wrap the entire app in AuthProvider */}
       <Router>
+        {/* Add Toaster at the root level with customized styles */}
+        <Toaster position="top-center" richColors toastOptions={{
+          success: { style: { backgroundColor: 'green', color: 'white' } },
+          error: { style: { backgroundColor: 'red', color: 'white' } },
+        }} />
+
         <Routes>
           {/* Routes where Navbar is not rendered */}
           <Route path="/" element={<LoginForm />} />
