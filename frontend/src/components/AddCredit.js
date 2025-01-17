@@ -15,7 +15,9 @@ const AddCredit = () => {
     if (userEmail) {
       const fetchBankAccounts = async () => {
         try {
-          const response = await axios.get(`https://price-tracker-backend-one.vercel.app/users/bank-accounts/${userEmail}`);
+          const response = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}users/bank-accounts/${userEmail}`
+          );
           
           if (response.data && response.data.bankAccounts) {
             const { bankAccounts } = response.data;
@@ -49,7 +51,10 @@ const AddCredit = () => {
     };
 
     try {
-      const response = await axios.post('https://price-tracker-backend-one.vercel.app/income/add', payload);
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}income/add`,
+        payload
+      );
 
       if (response.status === 201) {
         toast.success('Income added successfully!');

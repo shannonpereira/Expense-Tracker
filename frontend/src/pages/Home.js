@@ -21,7 +21,7 @@ const Home = () => {
   useEffect(() => {
     const fetchTransactionData = async () => {
       try {
-        const response = await axios.get(`https://price-tracker-backend-one.vercel.app/transactions/${userEmail}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}transactions/${userEmail}`);
         const transactionData = Array.isArray(response.data.transactions) ? response.data.transactions : [];
         setTransactions(transactionData);
 
@@ -40,7 +40,7 @@ const Home = () => {
 
     const fetchIncomeData = async () => {
       try {
-        const response = await axios.get(`https://price-tracker-backend-one.vercel.app/income/${userEmail}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}income/${userEmail}`);
         const incomeData = Array.isArray(response.data.incomes) ? response.data.incomes : [];
         setTotalIncome(incomeData.reduce((acc, curr) => acc + curr.amount, 0));
 
