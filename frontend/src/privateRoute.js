@@ -1,17 +1,14 @@
-// privateRoute.js
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Import useAuth hook
 
 const PrivateRoute = ({ children }) => {
-  const { userEmail } = useAuth(); // Check if user is authenticated
+  const isAuthenticated = localStorage.getItem('token'); // Check if user is authenticated
 
-  if (!userEmail) {
-    // Redirect to login page if no userEmail (unauthenticated)
-    return <Navigate to="/login" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />; // Redirect to login if not authenticated
   }
 
-  return children; // Render the protected route if user is authenticated
+  return children; // Render the protected content if authenticated
 };
 
 export default PrivateRoute;
