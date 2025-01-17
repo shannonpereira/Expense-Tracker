@@ -1,0 +1,11 @@
+/* styles.css */
+.Toastify__toast--success {
+    background-color: #f59d71 !important; /* Orange */
+    color: white !important;
+  }
+  
+  .Toastify__toast--error {
+    background-color: #392a31 !important; /* Dark black/brown */
+    color: white !important;
+  }
+  

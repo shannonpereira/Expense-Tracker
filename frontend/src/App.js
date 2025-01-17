@@ -5,8 +5,11 @@ import SignupForm from './SignupForm';
 import HomePage from './pages/Home';
 import AddCredit from './components/AddCredit';
 import AddDebit from './components/AddDebit';
-import Navbar from './components/navbar'; // Ensure correct capitalization
+import Navbar from './components/navbar';
 import PrivateRoute from './privateRoute'; // Import the PrivateRoute component
+import { AuthProvider } from './AuthContext'; // Import the AuthProvider
+import { ToastContainer } from 'react-toastify'; // Import ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import the Toastify CSS globally
 
 // Layout component to include Navbar conditionally
 const Layout = ({ children }) => {
@@ -24,49 +27,54 @@ const Layout = ({ children }) => {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Routes where Navbar is not rendered */}
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignupForm />} />
+    <AuthProvider> {/* Wrap the entire app in AuthProvider */}
+      <Router>
+        <Routes>
+          {/* Routes where Navbar is not rendered */}
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignupForm />} />
 
-        {/* Routes wrapped with Layout for conditional Navbar */}
-        <Route
-          path="/*"
-          element={
-            <Layout>
-              <Routes>
-                <Route
-                  path="/home"
-                  element={
-                    <PrivateRoute>
-                      <HomePage />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/add-credit"
-                  element={
-                    <PrivateRoute>
-                      <AddCredit />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/add-debit"
-                  element={
-                    <PrivateRoute>
-                      <AddDebit />
-                    </PrivateRoute>
-                  }
-                />
-              </Routes>
-            </Layout>
-          }
-        />
-      </Routes>
-    </Router>
+          {/* Routes wrapped with Layout for conditional Navbar */}
+          <Route
+            path="/*"
+            element={
+              <Layout>
+                <Routes>
+                  <Route
+                    path="/home"
+                    element={
+                      <PrivateRoute>
+                        <HomePage />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/add-credit"
+                    element={
+                      <PrivateRoute>
+                        <AddCredit />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/add-debit"
+                    element={
+                      <PrivateRoute>
+                        <AddDebit />
+                      </PrivateRoute>
+                    }
+                  />
+                </Routes>
+              </Layout>
+            }
+          />
+        </Routes>
+
+        {/* Render Toast notifications globally */}
+        <ToastContainer />
+      </Router>
+    </AuthProvider>
   );
 }
 
