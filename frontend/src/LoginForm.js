@@ -1,14 +1,15 @@
+// LoginForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify'; // Importing toast and ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
+import { useAuth } from './AuthContext'; // Import useAuth hook
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth(); // Access login function from AuthContext
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,32 +23,17 @@ const LoginForm = () => {
       // Store token and user information
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userId', response.data.userId);
+      localStorage.setItem('userEmail', email); // Store user email in localStorage
 
-      // Show success notification using Toastify
-      toast.success('Login successful!', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      // Store the email in the AuthContext (Global state)
+      login(email);
 
+      alert('Login successful!');
+      
       // Redirect to home page
       navigate('/home');
     } catch (err) {
       setError('Invalid credentials. Please try again.');
-      // Show error notification using Toastify
-      toast.error('Invalid credentials. Please try again.', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
     }
   };
 
@@ -82,19 +68,6 @@ const LoginForm = () => {
           Don't have an account? <a href="/signup" className="text-orange-500 hover:underline">Sign Up</a>
         </p>
       </div>
-
-      {/* ToastContainer to show the toast notifications */}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
   );
 };

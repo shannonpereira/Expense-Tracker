@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import LoginForm from './LoginForm';
@@ -8,8 +9,6 @@ import AddDebit from './components/AddDebit';
 import Navbar from './components/navbar';
 import PrivateRoute from './privateRoute'; // Import the PrivateRoute component
 import { AuthProvider } from './AuthContext'; // Import the AuthProvider
-import { ToastContainer } from 'react-toastify'; // Import ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Import the Toastify CSS globally
 
 // Layout component to include Navbar conditionally
 const Layout = ({ children }) => {
@@ -70,9 +69,6 @@ function App() {
             }
           />
         </Routes>
-
-        {/* Render Toast notifications globally */}
-        <ToastContainer />
       </Router>
     </AuthProvider>
   );
