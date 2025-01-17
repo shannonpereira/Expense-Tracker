@@ -1,56 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import ExpenseList from '../components/expenseList'; // Your ExpenseList component
-import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import React from 'react';
+import Navbar from '../components/navbar'; // Import the Navbar component
 
-const Home = () => {
-  const [expenses, setExpenses] = useState([]);
-  const [total, setTotal] = useState(0);
-
-  // Fetch expenses on component mount
-  useEffect(() => {
-    const fetchExpenses = async () => {
-      try {
-        const response = await axios.get('https://price-tracker-backend-one.vercel.app/transactions');
-        setExpenses(response.data);
-        const totalAmount = response.data.reduce((sum, expense) => sum + expense.amount, 0);
-        setTotal(totalAmount);
-      } catch (err) {
-        console.error('Error fetching expenses:', err);
-      }
-    };
-
-    fetchExpenses();
-  }, []);
-
-  // Logout handler
-  const handleLogout = () => {
-    // Remove token from localStorage and redirect to login page
-    localStorage.removeItem('token');
-    window.location.href = '/login'; // Redirect after logout
-  };
-
+const HomePage = () => {
   return (
-    <div>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="navbar-left">
-          <Link to="/home">Home</Link>
-          <Link to="/addexpense">Expense Tracker</Link>
-        </div>
-        <div className="navbar-right">
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      </nav>
-
-      {/* Content */}
-      <div className="content">
-        <h2>Welcome to the Expense Tracker</h2>
-        <h3>Total Expenses: ${total}</h3>
-        <ExpenseList expenses={expenses} />  {/* Pass expenses to ExpenseList component */}
+    <div className="min-h-screen bg-gray-900">
+      <Navbar /> {/* Add Navbar here */}
+      <div className="p-8 text-center">
+        <h2 className="text-3xl text-white">Welcome to the Expense Tracker</h2>
+        <p className="text-gray-400 mt-4">Manage your expenses efficiently!</p>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
