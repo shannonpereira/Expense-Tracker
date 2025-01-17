@@ -17,7 +17,7 @@ const AddDebit = () => {
       const fetchBankAccounts = async () => {
         try {
           const response = await axios.get(
-            `https://price-tracker-backend-one.vercel.app/users/bank-accounts/${userEmail}`
+            `${process.env.REACT_APP_BACKEND_URL}users/bank-accounts/${userEmail}`
           );
           if (response.data && response.data.bankAccounts) {
             const { bankAccounts } = response.data;
@@ -64,7 +64,7 @@ const AddDebit = () => {
 
     try {
       const response = await axios.post(
-        'https://price-tracker-backend-one.vercel.app/transactions/add',
+        `${process.env.REACT_APP_BACKEND_URL}transactions/add`,
         payload
       );
 

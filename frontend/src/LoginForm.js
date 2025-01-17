@@ -1,4 +1,3 @@
-// LoginForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +14,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://price-tracker-backend-one.vercel.app/users/login', {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}users/login`, {
         email,
         password,
       });

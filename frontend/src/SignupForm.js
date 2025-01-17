@@ -25,7 +25,7 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await axios.post('https://price-tracker-backend-one.vercel.app/users/add', {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}users/add`, {
         name,
         email,
         password,
