@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../AuthContext';
-import { Toaster, toast } from 'sonner'; // Importing Sonner for notifications
+import { toast } from 'sonner'; // Importing Sonner for notifications
 
 const AddDebit = () => {
   const { userEmail } = useAuth();
@@ -85,7 +85,6 @@ const AddDebit = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      <Toaster position="top-center" />
       <div className="w-full max-w-md p-6 bg-gray-800 text-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-orange-500 text-center mb-4">Add Debit</h2>
 

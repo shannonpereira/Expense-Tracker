@@ -29,11 +29,14 @@ function App() {
     <AuthProvider> {/* Wrap the entire app in AuthProvider */}
       <Router>
         {/* Add Toaster at the root level with customized styles */}
-        <Toaster position="top-center" richColors toastOptions={{
-          success: { style: { backgroundColor: 'green', color: 'white' } },
-          error: { style: { backgroundColor: 'red', color: 'white' } },
-        }} />
-
+        <Toaster 
+          position="top-center" 
+          richColors 
+          toastOptions={{
+            success: { style: { backgroundColor: 'green', color: 'white' } },
+            error: { style: { backgroundColor: 'red', color: 'white' } },
+          }}
+        />
         <Routes>
           {/* Routes where Navbar is not rendered */}
           <Route path="/" element={<LoginForm />} />

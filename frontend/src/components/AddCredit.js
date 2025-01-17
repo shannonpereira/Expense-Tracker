@@ -53,7 +53,6 @@ const AddCredit = () => {
 
       if (response.status === 201) {
         toast.success('Income added successfully!');
-        
         setAmount('');
         setPaymentMode('Bank Transfer');
         setLinkedBank(bankAccounts.length > 0 ? bankAccounts[0] : '');
@@ -128,7 +127,6 @@ const AddCredit = () => {
           </button>
         </form>
       </div>
-      
     </div>
   );
 };

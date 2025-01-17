@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner'; // Import toast from Sonner
-import { Toaster } from 'sonner'; // Import Toaster component from Sonner
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -75,9 +74,6 @@ const Navbar = () => {
           Logout
         </button>
       </nav>
-
-      {/* Add Sonner's Toaster component at a high level */}
-      <Toaster position="top-center" />
     </>
   );
 };

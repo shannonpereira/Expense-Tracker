@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext'; // Import useAuth hook
-import { Toaster, toast } from 'sonner'; // Import Sonner components
+import {  toast } from 'sonner'; // Import Sonner components
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
