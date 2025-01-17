@@ -290,11 +290,11 @@ const Home = () => {
 </div>
 
 
-     {/* Transaction Details */}
+   {/* Transaction Details */}
 <div className="mb-6">
   <h2 className="text-xl font-semibold mb-4 text-gray-100">Transaction Details</h2>
-  <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-    <table className="w-full text-left border-collapse">
+  <div className="bg-gray-800 p-6 rounded-lg shadow-md overflow-x-auto">
+    <table className="w-full text-left border-collapse min-w-[600px]">
       <thead>
         <tr className="bg-gray-700 text-gray-300">
           <th className="p-3 text-sm font-medium uppercase">Date</th>
